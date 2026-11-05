@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Egg Production Tracker</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "Segoe UI", system-ui, sans-serif;
+        color: #25342b;
+        background: #f5f6f1;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0 auto;
+        padding: 48px 24px;
+        background:
+          radial-gradient(ellipse at 12% 2%, #e8eedc 0, transparent 34rem),
+          #f5f6f1;
+      }
+
+      main {
+        width: min(100%, 940px);
+        margin: 0 auto;
+      }
+
+      .page-header {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        margin-bottom: 30px;
+      }
+
+      .brand-mark {
+        display: grid;
+        width: 58px;
+        height: 58px;
+        flex: 0 0 58px;
+        place-items: center;
+        border: 1px solid #dfe7d7;
+        border-radius: 18px;
+        background: #fff;
+        box-shadow: 0 5px 16px #32432e0c;
+      }
+
+      .brand-mark svg {
+        width: 32px;
+        height: 32px;
+      }
+
+      .eyebrow {
+        margin: 0 0 5px;
+        color: #52614e;
+        font-size: 0.9rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      h1, h2, p {
+        margin-top: 0;
+      }
+
+      h1 {
+        margin-bottom: 4px;
+        color: #c29f03;
+        font-size: clamp(2rem, 5vw, 2.8rem);
+        letter-spacing: -0.045em;
+      }
+
+      .page-subtitle {
+        margin-bottom: 0;
+        color: #788277;
+        font-size: 0.96rem;
+      }
+
+      .panel {
+        margin-bottom: 22px;
+        padding: 26px;
+        border: 1px solid #e6e9e1;
+        border-radius: 16px;
+        background: #fff;
+        box-shadow: 0 12px 32px #263b2b0b;
+      }
+
+      .section-heading {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      h2 {
+        margin-bottom: 0;
+        color: #2a3930;
+        font-size: 1.05rem;
+        letter-spacing: -0.02em;
+      }
+
+      .section-note {
+        margin-bottom: 0;
+        color: #8a9387;
+        font-size: 0.82rem;
+      }
+
+      form {
+        display: grid;
+        grid-template-columns: 1.25fr 1fr 0.8fr auto;
+        gap: 14px;
+        align-items: end;
+      }
+
+      label {
+        display: grid;
+        gap: 8px;
+        color: #59665a;
+        font-size: 0.82rem;
+        font-weight: 650;
+      }
+
+      input, button {
+        box-sizing: border-box;
+        min-width: 0;
+        min-height: 46px;
+        padding: 0 13px;
+        border: 1px solid #dfe5dc;
+        border-radius: 8px;
+        font: inherit;
+      }
+
+      input {
+        width: 100%;
+        color: #26372c;
+        background: #fcfdfb;
+        transition: border-color 150ms ease, box-shadow 150ms ease;
+      }
+
+      input:focus {
+        border-color: #638653;
+        outline: none;
+        box-shadow: 0 0 0 3px #78986626;
+      }
+
+      button {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        padding: 0 17px;
+        border-color: #315b3d;
+        color: #e9e7e7;
+        background: #315b3d;
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 700;
+        transition: background 150ms ease, transform 150ms ease;
+      }
+
+      button:hover:not(:disabled) {
+        transform: translateY(-1px);
+        background: #254a31;
+      }
+
+      button:focus-visible {
+        outline: 3px solid #78986673;
+        outline-offset: 2px;
+      }
+
+      button:disabled {
+        cursor: wait;
+        opacity: 0.7;
+      }
+
+      .button-icon {
+        width: 17px;
+        height: 17px;
+      }
+
+      #status {
+        min-height: 1.25rem;
+        margin: 14px 0 0;
+        color: #47704d;
+        font-size: 0.86rem;
+      }
+
+      .error-message {
+        color: #a53d32 !important;
+      }
+
+      .total-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 22px;
+        padding: 23px 26px;
+        overflow: hidden;
+        border: 1px solid #dce6d5;
+        border-radius: 16px;
+        background:
+          radial-gradient(circle at 95% 0, #dce9cf 0, transparent 14rem),
+          #edf3e8;
+      }
+
+      .total-label {
+        margin-bottom: 7px;
+        color: #63725f;
+        font-size: 0.82rem;
+        font-weight: 650;
+      }
+
+      #total {
+        display: flex;
+        align-items: baseline;
+        gap: 9px;
+        margin-bottom: 0;
+        color: #294c34;
+        font-size: 2.15rem;
+        font-weight: 760;
+        letter-spacing: -0.055em;
+        line-height: 1;
+      }
+
+      .total-unit {
+        color: #71806d;
+        font-size: 0.9rem;
+        font-weight: 550;
+        letter-spacing: 0;
+      }
+
+      .total-decoration {
+        display: grid;
+        width: 54px;
+        height: 54px;
+        place-items: center;
+        border: 1px solid #dbe5d2;
+        border-radius: 50%;
+        color: #55754c;
+        background: #ffffffa6;
+      }
+
+      .total-decoration svg {
+        width: 25px;
+        height: 25px;
+      }
+
+      .table-wrap {
+        overflow-x: auto;
+        border: 1px solid #e8ebe4;
+        border-radius: 10px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+      }
+
+      th, td {
+        padding: 13px 15px;
+        border-bottom: 1px solid #edf0ea;
+        white-space: nowrap;
+      }
+
+      td {
+        color: #4a574d;
+        font-size: 0.9rem;
+      }
+
+      th {
+        color: #768174;
+        background: #f8f9f6;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.055em;
+        text-transform: uppercase;
+      }
+
+      tbody tr:last-child td {
+        border-bottom: 0;
+      }
+
+      tbody tr:hover {
+        background: #fbfcf9;
+      }
+
+      #records td[colspan] {
+        padding: 30px 15px;
+        color: #8b9488;
+        text-align: center;
+      }
+
+      @media (max-width: 720px) {
+        body {
+          padding: 30px 18px;
+        }
+
+        form {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: 24px 14px;
+        }
+
+        .page-header {
+          gap: 13px;
+          margin-bottom: 23px;
+        }
+
+        .brand-mark {
+          width: 48px;
+          height: 48px;
+          flex-basis: 48px;
+          border-radius: 14px;
+        }
+
+        .panel {
+          padding: 20px 17px;
+        }
+
+        .section-heading {
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 5px;
+        }
+
+        form {
+          grid-template-columns: 1fr;
+        }
+
+        .total-card {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header class="page-header">
+        <div class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <path d="M20 5.5c-5.7 0-10.4 10.1-10.4 19.1A10.4 10.4 0 0 0 20 35a10.4 10.4 0 0 0 10.4-10.4C30.4 15.6 25.7 5.5 20 5.5Z" fill="#E8C968"/>
+            <path d="M14 24.7c.5 2.7 2.5 4.5 5.2 4.8" stroke="#FFF9E8" stroke-width="2.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <p class="eyebrow">FARM DASHBOARD</p>
+          <h1>EGG PRODUCTION</h1>
+          <p class="page-subtitle">A clear view of today’s work, shed by shed.</p>
+        </div>
+      </header>
+
+      <section class="panel" aria-labelledby="log-heading">
+        <div class="section-heading">
+          <h2 id="log-heading">Log daily production</h2>
+          <p class="section-note">Add a collection to your farm records</p>
+        </div>
+        <form id="egg-form">
+          <label for="shed">Shed name
+            <input id="shed" name="shed" placeholder="e.g. North Shed" required>
+          </label>
+          <label for="date">Collection date
+            <input id="date" name="date" type="date" required>
+          </label>
+          <label for="count">Egg count
+            <input id="count" name="count" type="number" min="0" step="1" placeholder="0" required>
+          </label>
+          <button id="submit-btn" type="submit">
+            <svg class="button-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            Add record
+          </button>
+        </form>
+        <p id="status" role="status" aria-live="polite"></p>
+      </section>
+
+      <section class="total-card" aria-label="Production total">
+        <div>
+          <p class="total-label">All-time eggs recorded</p>
+          <p id="total"><span>0</span><span class="total-unit">eggs</span></p>
+        </div>
+        <div class="total-decoration" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 3.5c-3.4 0-6.2 6-6.2 11.4a6.2 6.2 0 0 0 12.4 0C18.2 9.5 15.4 3.5 12 3.5Z" stroke="currentColor" stroke-width="1.6"/>
+            <path d="M9 15.5c.3 1.5 1.4 2.5 2.9 2.7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="records-heading">
+        <div class="section-heading">
+          <h2 id="records-heading">Production records</h2>
+          <p class="section-note">Latest collections and running total</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Shed</th>
+                <th scope="col">Egg count</th>
+                <th scope="col">Running total</th>
+              </tr>
+            </thead>
+            <tbody id="records">
+              <tr><td colspan="4">No production records yet.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <script>
+      const form = document.getElementById("egg-form");
+      const submitButton = document.getElementById("submit-btn");
+      const status = document.getElementById("status");
+      const recordsBody = document.getElementById("records");
+      const totalValue = document.querySelector("#total span:first-child");
+
+      function todayAsISODate() {
+        const now = new Date();
+        const localDate = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
+        return localDate.toISOString().slice(0, 10);
+      }
+
+      async function readJsonResponse(response) {
+        if (!response.headers.get("content-type")?.includes("application/json")) {
+          throw new Error(
+            "The API returned a web page instead of JSON. Run `python Day18_exercise.py` and open http://127.0.0.1:5000/."
+          );
+        }
+        return response.json();
+      }
+
+      async function loadRecords() {
+        const response = await fetch("/api/eggs");
+        const data = await readJsonResponse(response);
+        if (!response.ok) {
+          throw new Error(data.error || `Could not load records (${response.status}).`);
+        }
+
+        totalValue.textContent = data.total_eggs;
+        recordsBody.replaceChildren();
+        if (data.records.length === 0) {
+          const row = recordsBody.insertRow();
+          const cell = row.insertCell();
+          cell.colSpan = 4;
+          cell.textContent = "No production records yet.";
+          return;
+        }
+
+        for (const record of data.records) {
+          const row = recordsBody.insertRow();
+          for (const value of [
+            record.date,
+            record.shed,
+            record.count,
+            record.running_total
+          ]) {
+            row.insertCell().textContent = value;
+          }
+        }
+      }
+
+      document.getElementById("date").value = todayAsISODate();
+      loadRecords().catch((error) => {
+        status.textContent = error.message;
+        status.classList.add("error-message");
+      });
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        submitButton.disabled = true;
+        status.textContent = "Saving record...";
+        status.classList.remove("error-message");
+
+        const formData = new FormData(form);
+        const record = {
+          shed: formData.get("shed"),
+          date: formData.get("date"),
+          count: Number(formData.get("count"))
+        };
+
+        try {
+          const response = await fetch("/api/eggs", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(record)
+          });
+          const data = await readJsonResponse(response);
+          if (!response.ok) {
+            throw new Error(data.error || `Could not save record (${response.status}).`);
+          }
+
+          await loadRecords();
+          status.textContent = `Saved ${data.count} eggs for ${data.shed}.`;
+          status.classList.remove("error-message");
+          form.elements.shed.value = "";
+          form.elements.count.value = "";
+          form.elements.shed.focus();
+        } catch (error) {
+          status.textContent = error.message;
+          status.classList.add("error-message");
+        } finally {
+          submitButton.disabled = false;
+        }
+      });
+    </script>
+  </body>
+</html>

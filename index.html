@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Text summarizer</title>
+  </head>
+  <body>
+    <label for="input">Text to summarize</label>
+    <textarea id="input"></textarea>
+    <button id="submit-btn" type="button" onclick="summarize()">Summarize</button>
+    <p id="output" aria-live="polite"></p>
+
+    <script>
+      async function summarize() {
+        const text = document.getElementById("input").value;
+        const btn = document.getElementById("submit-btn");
+        const output = document.getElementById("output");
+
+        btn.disabled = true;
+        btn.textContent = "Summarizing...";
+        output.textContent = "Summarizing...";
+
+        try {
+          const response = await fetch("http://localhost:5000/summarize", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ text })
+          });
+
+          if (!response.ok) {
+            throw new Error(`Request failed with status ${response.status}`);
+          }
+
+          const data = await response.json();
+          output.textContent = data.summary;
+        } catch {
+          output.textContent = "Something went wrong. Try again.";
+        } finally {
+          btn.disabled = false;
+          btn.textContent = "Summarize";
+        }
+      }
+    </script>
+  </body>
+</html>
