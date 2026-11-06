@@ -47,3 +47,10 @@ be adjusted for each client.
 | Boda boda and matatu owners | Daily takings per bike or vehicle | KES 20,000–35,000 | KES 2,000–3,000 |
 | Butcheries, kiosks, and small shops | Daily sales or stock count per outlet | KES 15,000–30,000 | KES 1,500–2,500 |
 | Salons and barbershops with several chairs | Clients served per chair per day | KES 15,000–25,000 | KES 1,500–2,000 |
+
+## Current prototype limitations
+
+The current Flask prototype stores records in memory, so records are lost when
+the server restarts. It has no user accounts, backups, or hosted subscription
+features. Add persistent storage and secure deployment before using it for
+business-critical records or charging customers for a hosted service.
