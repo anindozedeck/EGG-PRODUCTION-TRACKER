@@ -31,35 +31,19 @@ py Day18_exercise.py
 
 Then open http://127.0.0.1:5000.
 
-## Who could use it in Kenya?
+## Who could use a tool like this, and at what price
 
-- **Small layer farms and family-run poultry businesses** that currently count
-  eggs on paper or in a notebook. **Suggested price:** KES 300–500 per
-  farm/month.
-- **Multi-shed farms** that want to compare daily collections across sheds.
-  **Suggested price:** KES 700–1,200 per farm/month.
-- **Youth- and women-led poultry enterprises** that need a simple production
-  record to support day-to-day planning. **Suggested starting point:** a free
-  pilot, then KES 300–500 per farm/month for the basic plan.
-- **Small egg cooperatives or collection points** could use an adapted version
-  to record collections from member farms. The current tool records by shed,
-  not by supplier, so member-level tracking would need to be added; pricing
-  would depend on that adaptation.
+The tool records a number per location per day and adds it up. Small businesses
+could use it to replace manual tracking in an exercise book, on WhatsApp, or on
+a calculator. The prices below are estimates in Kenyan shillings (KES) and can
+be adjusted for each client.
 
-It is most useful where the main need is consistent production records. It does
-not currently manage feed, flock health, sales, expenses, or inventory.
-
-## Suggested price point
-
-These are **starting price hypotheses in Kenyan shillings (KES)**, not market
-survey results. Offer a short, free pilot and test willingness to pay with local
-poultry farmers before setting final prices. Keep the entry plan affordable and
-charge more only when the service includes dependable hosting, persistent
-records, backups, and support.
-
-## Current prototype limitations
-
-The current Flask prototype stores records in memory, so records are lost when
-the server restarts. It has no user accounts, backups, or hosted subscription
-features. Add persistent storage and secure deployment before using it for
-business-critical records or charging customers for a hosted service.
+| Business | What they would log | Setup (one-time) | Monthly |
+| --- | --- | ---: | ---: |
+| Poultry and egg farmers | Eggs per shed per day | KES 25,000–35,000 | KES 2,000–3,000 |
+| Dairy farmers | Litres of milk per cow or per milking | KES 25,000–40,000 | KES 2,000–3,500 |
+| Fish farmers | Kilograms harvested per pond | KES 20,000–30,000 | KES 1,500–2,500 |
+| Greenhouse and horticulture growers | Kilograms picked per greenhouse per day | KES 25,000–40,000 | KES 2,000–3,500 |
+| Boda boda and matatu owners | Daily takings per bike or vehicle | KES 20,000–35,000 | KES 2,000–3,000 |
+| Butcheries, kiosks, and small shops | Daily sales or stock count per outlet | KES 15,000–30,000 | KES 1,500–2,500 |
+| Salons and barbershops with several chairs | Clients served per chair per day | KES 15,000–25,000 | KES 1,500–2,000 |
