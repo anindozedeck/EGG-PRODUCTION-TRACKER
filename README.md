@@ -3,6 +3,10 @@
 A lightweight dashboard for recording egg collections by date and poultry shed,
 and viewing recorded production totals.
 
+## Live demo
+
+[Open the Egg Production Tracker](https://egg-production-tracker-1.onrender.com)
+
 ## Who could use it in Kenya?
 
 - **Small layer farms and family-run poultry businesses** that currently count
