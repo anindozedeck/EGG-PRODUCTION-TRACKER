@@ -7,6 +7,30 @@ and viewing recorded production totals.
 
 https://egg-production-tracker-1.onrender.com
 
+## Setup
+
+Create and activate a virtual environment, then install the dependencies:
+
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+py -m pip install -r requirements.txt
+```
+
+## Try it
+
+Open the [live demo](https://egg-production-tracker-1.onrender.com) in your browser.
+
+## Run
+
+Start the app locally:
+
+```powershell
+py Day18_exercise.py
+```
+
+Then open http://127.0.0.1:5000.
+
 ## Who could use it in Kenya?
 
 - **Small layer farms and family-run poultry businesses** that currently count
