@@ -5,7 +5,7 @@ and viewing recorded production totals.
 
 ## Live demo
 
-[Open the Egg Production Tracker](https://egg-production-tracker-1.onrender.com)
+https://egg-production-tracker-1.onrender.com
 
 ## Who could use it in Kenya?
 
